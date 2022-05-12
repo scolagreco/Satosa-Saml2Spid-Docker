@@ -1,0 +1,50 @@
+version: '3'
+services:
+
+  satosa-mongo:
+    image: mongo
+    container_name: satosa-mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: oidcop
+      MONGO_INITDB_ROOT_USERNAME: satosa
+      MONGO_INITDB_ROOT_PASSWORD: thatpassword
+    volumes:
+      - ./mongodata:/data/db
+      - /usr/share/zoneinfo/Europe/Rome:/etc/localtime:ro
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro  
+    ports:
+      - '27017-27019:27017-27019'
+
+  satosa-mongo-express:
+    image: mongo-express
+    container_name: satosa-mongo-express
+    restart: always
+    ports:
+      - 8082:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: satosauser
+      ME_CONFIG_BASICAUTH_PASSWORD: satosapw            
+      ME_CONFIG_MONGODB_ADMINUSERNAME: satosa
+      ME_CONFIG_MONGODB_ADMINPASSWORD: thatpassword
+      ME_CONFIG_MONGODB_URL: mongodb://satosa:thatpassword@satosa-mongo:27017/
+
+  satosa-saml2spid:
+    image: satosa-saml2spid-testorig 
+    image: satosa-saml2spid-test 
+    container_name: satosa-saml2spid
+    depends_on:
+      - satosa-mongo
+    environment:
+      - THAT=thing
+    expose:
+      - 10000
+    ports:
+      - "10000:10000"
+    volumes:
+       - ./proxy_conf.yaml:/satosa_proxy/proxy_conf.yaml
+       - ./demo-run.sh:/satosa_proxy/demo-run.sh
+       - ./oidc_op_frontend.yaml:/satosa_proxy/plugins/frontends/oidc_op_frontend.yaml  
+#      - satosa-saml2saml_certs:/satosa_pki
+#      - satosa-saml2saml_conf:/satosa_proxy
+#      - satosa-saml2saml_logs:/satosa_logs      
