@@ -1,5 +1,4 @@
-FROM alpine:3.12.3
-MAINTAINER Giuseppe De Marco <demarcog83@gmail.com>
+FROM scolagreco/alpine-base:v3.13.5
 
 ENV BASEDIR="/satosa_proxy"
 

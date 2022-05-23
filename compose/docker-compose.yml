@@ -30,13 +30,14 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://satosa:thatpassword@satosa-mongo:27017/
 
   satosa-saml2spid:
-    image: satosa-saml2spid-testorig 
+#    image: satosa-saml2spid-testorig 
     image: satosa-saml2spid-test 
     container_name: satosa-saml2spid
     depends_on:
       - satosa-mongo
     environment:
       - THAT=thing
+      - SATOSA_USER_ID_HASH_SALT=cambiala  
     expose:
       - 10000
     ports:
