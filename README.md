@@ -6,12 +6,15 @@
 3. [Docker Compose](#docker-compose)
 
 ## Build
-
-
+````
+docker build -t satosa-saml2spid-test .
+````
 
 ## Run the stack
-
-
+````
+cd compose/
+docker-compose down -v && docker-compose up -d && docker-compose logs -f
+````
 
 ## Docker compose
 
