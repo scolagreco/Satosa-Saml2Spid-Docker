@@ -10,7 +10,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: satosa
       MONGO_INITDB_ROOT_PASSWORD: thatpassword
     volumes:
-      - ./mongodata:/data/db
+      - mongodata:/data/db
       - /usr/share/zoneinfo/Europe/Rome:/etc/localtime:ro
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro  
     ports:
@@ -30,14 +30,13 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://satosa:thatpassword@satosa-mongo:27017/
 
   satosa-saml2spid:
-#    image: satosa-saml2spid-testorig 
     image: satosa-saml2spid-test 
     container_name: satosa-saml2spid
     depends_on:
       - satosa-mongo
-    environment:
-      - THAT=thing
-      - SATOSA_USER_ID_HASH_SALT=cambiala  
+#    environment:
+#      - THAT=thing
+#      - SATOSA_USER_ID_HASH_SALT=cambiala  
     expose:
       - 10000
     ports:
@@ -46,6 +45,32 @@ services:
        - ./proxy_conf.yaml:/satosa_proxy/proxy_conf.yaml
        - ./demo-run.sh:/satosa_proxy/demo-run.sh
        - ./oidc_op_frontend.yaml:/satosa_proxy/plugins/frontends/oidc_op_frontend.yaml  
-#      - satosa-saml2saml_certs:/satosa_pki
-#      - satosa-saml2saml_conf:/satosa_proxy
-#      - satosa-saml2saml_logs:/satosa_logs      
+#      - satosa_certs:/satosa_pki
+#      - satosa_conf:/satosa_proxy
+#      - satosa_logs:/satosa_logs
+
+volumes:
+  
+  satosa_certs:
+    driver_opts:
+      type: none
+      device: $PWD/satosa/certs/
+      o: bind
+
+  satosa_conf:
+    driver_opts:
+      type: none
+      device: $PWD/satosa/conf/
+      o: bind
+
+  satosa_logs:
+    driver_opts:
+      type: none
+      device: $PWD/satosa/logs/
+      o: bind
+
+  mongodata:
+    driver_opts:
+      type: none
+      device: $PWD/mongodata/
+      o: bind
