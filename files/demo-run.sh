@@ -48,7 +48,7 @@ update_yaml plugins/backends/spidsaml2_backend.yaml  ".config.sp_config.contact_
 # Update spidsaml2_backend.yaml with $SATOSA_CONTACT_PERSON_TELEPHONE_NUMBER
 update_yaml plugins/backends/spidsaml2_backend.yaml  ".config.sp_config.contact_person[0].telephone_number" "$SATOSA_CONTACT_PERSON_TELEPHONE_NUMBER"
 # Update spidsaml2_backend.yaml with $SATOSA_CONTACT_PERSON_FISCALCODE
-update_yaml plugins/backends/spidsaml2_backend.yaml  ".config.sp_config.contact_person[0].fiscalcode" "$SATOSA_CONTACT_PERSON_FISCALCODE"
+update_yaml plugins/backends/spidsaml2_backend.yaml  ".config.sp_config.contact_person[0].FiscalCode" "$SATOSA_CONTACT_PERSON_FISCALCODE"
 
 # Update saml2_backend.yaml and spidsaml2_backend.yaml with $SATOSA_CONTACT_PERSON_GIVEN_NAME
 update_yaml plugins/backends/saml2_backend.yaml ".config.sp_config.contact_person[0].given_name" "$SATOSA_CONTACT_PERSON_GIVEN_NAME"
