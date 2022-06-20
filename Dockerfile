@@ -1,4 +1,4 @@
-FROM scolagreco/alpine-base:v3.13.5
+FROM alpine:3.13.5
 
 ENV BASEDIR="/satosa_proxy"
 
@@ -10,6 +10,11 @@ ENV SERIAL_NUMBER="1234567890"
 ENV SPID_SECTOR="public"
 ENV URI="https://spid.proxy.example.org"
 ENV DAYS="7300"
+
+RUN apk add --update --no-cache tzdata \
+ && cp /usr/share/zoneinfo/Europe/Rome /etc/localtime \
+ && echo "Europe/Rome" > /etc/timezone \
+ && apk del tzdata
 
 COPY example/ $BASEDIR/
 COPY files/* /root/

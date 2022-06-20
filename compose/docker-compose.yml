@@ -80,6 +80,7 @@ services:
        - ./proxy_conf.yaml:/satosa_proxy/proxy_conf.yaml
        - ./demo-run.sh:/satosa_proxy/demo-run.sh
        - ./oidc_op_frontend.yaml:/satosa_proxy/plugins/frontends/oidc_op_frontend.yaml
+#       - /usr/share/zoneinfo/Europe/Rome:/etc/localtime:ro  
 #      - satosa_certs:/satosa_pki
 #      - satosa_conf:/satosa_proxy
 #      - satosa_logs:/satosa_logs
