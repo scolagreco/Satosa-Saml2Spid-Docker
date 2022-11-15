@@ -1,5 +1,5 @@
 #--- SATOSA Proxy_conf.yaml Config ---#
-BASE: !ENV ${SATOSA_BASE:'https://localhost:80443'}
+BASE: "https://localhost:10000"
 INTERNAL_ATTRIBUTES: "internal_attributes.yaml"
 COOKIE_STATE_NAME: "SATOSA_STATE"
 CONTEXT_STATE_DELETE: yes
@@ -8,16 +8,16 @@ COOKIE_MAX_AGE: 600 # 10 minutes
 #COOKIE_SECURE: no
 #COOKIE_HTTPONLY: no
 
-STATE_ENCRYPTION_KEY: !ENV ${SATOSA_STATE_ENCRYPTION_KEY:'Change Me!!!'}
+STATE_ENCRYPTION_KEY: "CHANGE_ME!"
 
 cookies_samesite_compat:
   - ["SATOSA_STATE", "SATOSA_STATE_LEGACY"]
 
 # The proxy can hash any attribute value (e.g., for obfuscation) before passing it on to the client
 # DEPRECATED, use hasher microservice instead
-USER_ID_HASH_SALT: !ENV ${SATOSA_USER_ID_HASH_SALT:'Change me!!!!!'}
+USER_ID_HASH_SALT: "CHANGE_ME!"
 
-UNKNOW_ERROR_REDIRECT_PAGE: !ENV ${SATOSA_UNKNOW_ERROR_REDIRECT_PAGE:'https://https://localhost:80443/static/error.html'}
+UNKNOW_ERROR_REDIRECT_PAGE: "https://localhost:9999/error_page.html"
 
 CUSTOM_PLUGIN_MODULE_PATHS:
   #- "plugins/ping"
@@ -27,6 +27,7 @@ CUSTOM_PLUGIN_MODULE_PATHS:
 BACKEND_MODULES:
   - "plugins/backends/saml2_backend.yaml"
   - "plugins/backends/spidsaml2_backend.yaml"
+  - "plugins/backends/ciesaml2_backend.yaml"
 FRONTEND_MODULES:
   - "plugins/frontends/saml2_frontend.yaml"
   - "plugins/frontends/oidc_op_frontend.yaml"
@@ -94,12 +95,12 @@ LOGGING:
     satosa.frontends.saml2:
       level: DEBUG
       formatter: simple
-      handlers: [saml2_debug_file]
+      handlers: [console]
       propagate: no
     satosa.backends.saml2:
       level: DEBUG
       formatter: simple
-      handlers: [saml2_debug_file]
+      handlers: [console]
       propagate: no
     satosa.frontends.idpy_oidcop:
       level: DEBUG
@@ -109,7 +110,7 @@ LOGGING:
     backends.spidsaml2:
       level: INFO
       formatter: simple
-      handlers: [spid_daily]
+      handlers: [console]
       propagate: no
 
   # root:

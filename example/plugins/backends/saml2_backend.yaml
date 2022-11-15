@@ -29,10 +29,14 @@ config:
 
     metadata:
       local: [./metadata/idp/]
+      mdq:
+        - url: "https://mdx.idem.garr.it/edugain/"
+          cert: ./pki/dem-mdx-service-crt.pem
+          freshness_period: P0Y0M0DT1H0M0S
       # using pyFF or other MDX server
       # mdq:
       #  - url: "http://mdq.auth.unical.it/static/sha1"
-          # cert: mdq.pem
+      #    cert: mdq.pem
 
     entityid: '<base_url>/<name>/metadata'
     accepted_time_diff: 300
@@ -93,4 +97,5 @@ config:
         name_id_format_allow_create: false
 
   # disco_srv must be defined if there is more than one IdP in the metadata specified above
-  disco_srv: "https://localhost:9999/disco.html"
+  # disco_srv: "https://localhost:9999/disco.html"
+  disco_srv: change with $SATOSA_DISCO_SRV
